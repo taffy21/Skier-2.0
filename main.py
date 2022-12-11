@@ -16,9 +16,9 @@ clock = pygame.time.Clock()
 treeImg = "tree.png"
 flagImg = "flag.png"
 
-imgList = [r"C:\Users\tbepe\OneDrive - OPHID\Desktop\Data Analytics\Python Projects\VSCODE FILES\skier\skier_forward.png", 
+imgList = [r"C:\Users\tbepe\OneDrive - OPHID\Desktop\Data Analytics\Python Projects\VSCODE FILES\skier\skier_left2.png", 
 r"C:\Users\tbepe\OneDrive - OPHID\Desktop\Data Analytics\Python Projects\VSCODE FILES\skier\skier_left1.png", 
-r"C:\Users\tbepe\OneDrive - OPHID\Desktop\Data Analytics\Python Projects\VSCODE FILES\skier\skier_left2.png", 
+r"C:\Users\tbepe\OneDrive - OPHID\Desktop\Data Analytics\Python Projects\VSCODE FILES\skier\skier_forward.png",
 r"C:\Users\tbepe\OneDrive - OPHID\Desktop\Data Analytics\Python Projects\VSCODE FILES\skier\skier_right1.png", 
 r"C:\Users\tbepe\OneDrive - OPHID\Desktop\Data Analytics\Python Projects\VSCODE FILES\skier\skier_right2.png"
 ]
@@ -62,12 +62,8 @@ while True:
         if openingScreen.handleEvent(event):
             screen = "Two"
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                player.moveLeft()
-
-            if event.key == pygame.K_RIGHT:
-                player.moveRight()
+        if player.moveSkier(event):
+            pass
 
     window.fill(cfg.WHITE)
     
@@ -85,7 +81,9 @@ while True:
 
         treeSprite.update()
 
-        flagSpriteGroup.update()        
+        flagSpriteGroup.update()  
+
+        print(player.direction)      
 
     pygame.display.update()
 
