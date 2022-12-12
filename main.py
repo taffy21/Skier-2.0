@@ -20,8 +20,8 @@ imgList = [r"C:\Users\tbepe\OneDrive - OPHID\Desktop\Data Analytics\Python Proje
 r"C:\Users\tbepe\OneDrive - OPHID\Desktop\Data Analytics\Python Projects\VSCODE FILES\skier\skier_left1.png", 
 r"C:\Users\tbepe\OneDrive - OPHID\Desktop\Data Analytics\Python Projects\VSCODE FILES\skier\skier_forward.png",
 r"C:\Users\tbepe\OneDrive - OPHID\Desktop\Data Analytics\Python Projects\VSCODE FILES\skier\skier_right1.png", 
-r"C:\Users\tbepe\OneDrive - OPHID\Desktop\Data Analytics\Python Projects\VSCODE FILES\skier\skier_right2.png"
-]
+r"C:\Users\tbepe\OneDrive - OPHID\Desktop\Data Analytics\Python Projects\VSCODE FILES\skier\skier_right2.png", 
+"skier_fall.png"]
 
 
 # Variables
@@ -49,8 +49,16 @@ flagSpriteGroup.add(flags)
 
 # skier
 player = skier.Skier(window, imgList, cfg.WIDTH, cfg.HEIGHT)
+playerSprite = pygame.sprite.Group()
+playerSprite.add(player)
 
+
+# initial screen 
 screen = "One"
+
+# text 
+score = 0
+scoretext = cfg.Text(window, f"Score: {score}", (10, 10))
 
 # Loops
 while True:
@@ -77,14 +85,27 @@ while True:
 
         flagSpriteGroup.draw(window)
 
-        player.draw()
+        playerSprite.draw(window)
+
+        scoretext.draw()
 
         treeSprite.update()
 
         flagSpriteGroup.update()  
 
-        print(player.direction)      
+        flagCapture = pygame.sprite.spritecollide(player, flagSpriteGroup, True, False)
 
+        treeCollide = pygame.sprite.spritecollide(player, treeSprite, True, False)
+
+        if flagCapture:
+            score += 10
+            scoretext.update(f"Score: {score}")
+
+        if treeCollide:                #TODO: AFTER COLLISION, RETURN SKIER TO UPRIGHT POSITION
+            player.skierFall()
+            pygame.time.delay(500)
+            #player.skierStartPos()
+        
     pygame.display.update()
 
     clock.tick(cfg.FPS)

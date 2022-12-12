@@ -14,7 +14,7 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center = (self.x, self.y))
 
     def update(self):
-        self.rect.move_ip(0, -1)
+        self.rect.move_ip(0, -2)
 
     def draw(self):
         self.window.blit(self.image, self.rect)
